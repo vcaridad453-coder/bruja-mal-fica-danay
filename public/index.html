@@ -233,3 +233,21 @@ function askOracle(){
  }
  const answers=[
  'Tómate un momento para observar la situación con calma. ¿Qué sabes con certeza y qué necesitas
+ saber antes de decidir?',
+ 'No necesitas resolverlo todo hoy. Da un pequeño paso con calma y observa cómo te sientes.',
+ 'Escucha tu intuición, pero acompáñala con hechos y decisiones prudentes.',
+ 'A veces, una pausa permite ver opciones que antes no habíamos considerado.',
+ 'Concéntrate en lo que sí puedes controlar y elige el camino que cuide tu bienestar.'
+ ];
+ const answer=answers[Math.floor(Math.random()*answers.length)];
+ showText('oracleAnswer','🔮 '+answer);
+}
+
+function showText(id,text){
+ document.getElementById(id).textContent=text;
+}
+
+function backToCastle(){
+ document.querySelectorAll('.room').forEach(room=>room.classList.add('hidden'));
+ document.getElementById('castle').classList.remove('hidden');
+}
