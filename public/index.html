@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10051c">
+<title>Bruja Maléfica Danay de la Caridad</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Georgia,serif;
+  color:#fff3d0;
+  background:radial-gradient(ellipse at top,#45205e,#10051c 65%,#050209);
+  min-height:100vh;
+  text-align:center
+}
+header{padding:28px 14px 12px}
+h1{color:#ffd66b;text-shadow:0 0 15px #b66aff;font-size:clamp(27px,7vw,43px)}
+.subtitle{color:#e3c9ff;line-height:1.6}
+main{max-width:850px;margin:auto;padding:12px}
+.castle{
+  border:2px solid #d7a84b;
+  border-radius:24px;
+  padding:20px 12px;
+  background:linear-gradient(#29133bde,#10051ceF);
+  box-shadow:0 0 30px #a34dff38
+}
+.castle-art{font-size:76px;filter:drop-shadow(0 0 15px #a66aff)}
+.doors{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;margin-top:22px
+}
+.door{
+ background:linear-gradient(145deg,#45215d,#1c0c2b);
+ border:1px solid #d6ae62;
+ border-radius:18px;
+ padding:18px 8px;
+ color:#fff1c5;
+ font-family:inherit;
+ font-size:16px;
+ cursor:pointer;
+ min-height:112px
+}
+.door span{display:block;font-size:34px;margin-bottom:8px}
+.door:active{transform:scale(.97)}
+.door:hover{box-shadow:0 0 18px #b86aff}
+.room{
+ display:none;
+ margin-top:15px;
+ padding:22px 15px;
+ background:#1b0c29;
+ border:1px solid #d6ae62;
+ border-radius:20px
+}
+.room h2{color:#ffd66b}
+button,input,textarea,select{font:inherit}
+input,textarea,select{
+ width:100%;padding:13px;margin:8px 0;
+ border:1px solid #b995e7;border-radius:10px;
+ background:#10051c;color:white
+}
+.action,.back{
+ border:1px solid #f0cc75;
+ border-radius:12px;padding:12px 18px;
+ margin:8px;background:#633b83;color:white;
+ cursor:pointer
+}
+.back{background:#392043}
+.answer{
+ display:none;text-align:left;white-space:pre-wrap;
+ line-height:1.7;margin-top:16px;padding:15px;
+ border-radius:12px;background:#2b1640
+}
+footer{padding:25px 12px;color:#cdb5e6;font-size:13px}
+@media(max-width:380px){.doors{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+<header>
+<h1>🔮 Bruja Maléfica 🔮</h1>
+<div class="subtitle">
+Danay de la Caridad<br>
+✨ Bienvenida a mi Castillo Mágico ✨
+</div>
+</header>
+
+<main>
+<section id="castle" class="castle">
+<div class="castle-art">🏰</div>
+<h2>El Castillo de los Misterios</h2>
+<p>Abre las puertas y descubre cada habitación.</p>
+
+<div class="doors">
+<button class="door" onclick="openRoom('tarot')"><span>🃏</span>Tarot y Cartas</button>
+<button class="door" onclick="openRoom('oracle')"><span>🔮</span>El Oráculo</button>
+<button class="door" onclick="openRoom('symbols')"><span>🌙</span>Sueños y Símbolos</button>
+<button class="door" onclick="openRoom('grimoire')"><span>📖</span>El Grimorio</button>
+<button class="door" onclick="openRoom('rituals')"><span>🕯️</span>Rituales Simbólicos</button>
+<button class="door" onclick="openRoom('baths')"><span>🌼</span>Baños Tradicionales</button>
+</div>
+</section>
+
+<section id="tarot" class="room">
+<h2>🃏 Tarot y Cartas</h2>
+<p>Elige una carta para recibir una interpretación simbólica.</p>
+<select id="card">
+<option value="sun">☀️ El Sol</option>
+<option value="moon">🌙 La Luna</option>
+<option value="star">⭐ La Estrella</option>
+<option value="strength">🦁 La Fuerza</option>
+<option value="hermit">🕯️ El Ermitaño</option>
+<option value="wheel">🎡 La Rueda de la Fortuna</option>
+<option value="lovers">❤️ Los Enamorados</option>
+</select>
+<button class="action" onclick="drawCard()">Revelar mi carta</button>
+<div id="cardAnswer" class="answer"></div>
+<button class="back" onclick="goHome()">🏰 Volver al castillo</button>
+</section>
+
+<section id="oracle" class="room">
+<h2>🔮 Pregunta al Oráculo</h2>
+<p>Escribe tu pregunta y recibe una reflexión para meditar.</p>
+<textarea id="question" rows="3" placeholder="Escribe aquí tu pregunta..."></textarea>
+<button class="action" onclick="askOracle()">Consultar</button>
+<div id="oracleAnswer" class="answer"></div>
+<button class="back" onclick="goHome()">🏰 Volver al castillo</button>
+</section>
+
+<section id="symbols" class="room">
+<h2>🌙 Sueños y Símbolos</h2>
+<p>Selecciona un símbolo para conocer una interpretación tradicional.</p>
+<select id="symbol">
+<option value="water">💧 Agua</option>
+<option value="snake">🐍 Serpiente</option>
+<option value="butterfly">🦋 Mariposa</option>
+<option value="moon">🌙 Luna</option>
+<option value="key">🗝️ Llave</option>
+<option value="bird">🕊️ Ave</option>
+<option value="rain">🌧️ Lluvia</option>
+</select>
+<button class="action" onclick="interpretSymbol()">Descubrir significado</button>
+<div id="symbolAnswer" class="answer"></div>
+<button class="back" onclick="goHome()">🏰 Volver al castillo</button>
+</section>
+
+<section id="grimoire" class="room">
+<h2>📖 El Grimorio</h2>
+<p>Un pequeño libro de símbolos, historia y tradiciones.</p>
+<button class="action" onclick="showText('grimAnswer','La luna: en numerosas tradiciones simboliza los ciclos, el cambio y la renovación.')">🌙 La Luna</button>
+<button class="action" onclick="showText('grimAnswer','La vela: en prácticas simbólicas representa la luz, la esperanza y la concentración.')">🕯️ La Vela</button>
+<button class="action" onclick="showText('grimAnswer','El espejo: aparece en numerosas leyendas como símbolo de reflexión y autoconocimiento.')">🪞 El Espejo</button>
+<button class="action" onclick="showText('grimAnswer','Las hierbas tienen historias y usos tradicionales diversos. Identifícalas correctamente y nunca las ingieras sin conocer su seguridad.')">🌿 Las Hierbas</button>
+<div id="grimAnswer" class="answer"></div>
+<button class="back" onclick="goHome()">🏰 Volver al castillo</button>
+</section>
+
+<section id="rituals" class="room">
+<h2>🕯️ Rituales Simbólicos</h2>
+<p>Prácticas sencillas para acompañar tus intenciones personales.</p>
+<button class="action" onclick="showText('ritualAnswer','Ritual de gratitud: busca un lugar tranquilo, respira lentamente y escribe tres cosas buenas que valores hoy.')">✨ Gratitud</button>
+<button class="action" onclick="showText('ritualAnswer','Ritual de nuevos comienzos: escribe una meta realista y un pequeño paso que puedas dar para acercarte a ella.')">🌅 Nuevos comienzos</button>
+<button class="action" onclick="showText('ritualAnswer','Momento de calma: siéntate cómodamente, respira con suavidad y dedica unos minutos a ordenar tus pensamientos.')">💜 Calma interior</button>
+<div id="ritualAnswer" class="answer"></div>
+<button class="back" onclick="goHome()">🏰 Volver al castillo</button>
+</section>
+
+<section id="baths" class="room">
+<h2>🌼 Baños Tradicionales</h2>
+<p>Conoce prácticas de relajación inspiradas en tradiciones populares.</p>
+<button class="action" onclick="showText('bathAnswer','Baño de relajación: utiliza agua tibia y disfruta de unos minutos de descanso. Evita productos que irriten tu piel.')">🌼 Relajación</button>
+<button class="action" onclick="showText('bathAnswer','Baño aromático: puedes disfrutar del aroma de flores seguras colocadas aparte del agua. No uses plantas desconocidas ni aceites esenciales directamente sobre la piel.')">🌸 Aromas florales</button>
+<button class="action" onclick="showText('bathAnswer','Momento de renovación: acompaña tu baño habitual con música tranquila y una intención positiva para la semana.')">✨ Renovación</button>
+<div id="bathAnswer" class="answer"></div>
+<button class="back" onclick="goHome()">🏰 Volver al castillo</button>
+</section>
+</main>
+
+<footer>
+✨ Un espacio de imaginación, reflexión y tradiciones culturales. 
+Las cartas y los símbolos no predicen el futuro ni sustituyen el asesoramiento profesional. ✨
+</footer>
+
+<script>
+function openRoom(id){
+ document.getElementById('castle').style.display='none';
+ document.querySelectorAll('.room').forEach(r=>r.style.display='none');
+ document.getElementById(id).style.display='block';
+ window.scrollTo(0,0);
+}
+function goHome(){
+ document.querySelectorAll('.room').forEach(r=>r.style.display='none');
+ document.getElementById('castle').style.display='block';
+ window.scrollTo(0,0);
+}
+function showText(id,text){
+ const box=document.getElementById(id);
+ box.textContent=text;
+ box.style.display='block';
+}
+const cards={
+ sun:'El Sol ☀️: suele simbolizar alegría, claridad y vitalidad. Pregúntate qué puede aportar más luz a tu vida.',
+ moon:'La Luna 🌙: se asocia con la intuición, los sueños y aquello que todavía no comprendes con claridad.',
+ star:'La Estrella ⭐: representa esperanza, inspiración y la posibilidad de recuperar la confianza.',
+ strength:'La Fuerza 🦁: invita a afrontar los retos con paciencia, valor y dominio de las emociones.',
+ hermit:'El Ermitaño 🕯️: simboliza introspección, silencio y búsqueda de sabiduría personal.',
+ wheel:'La Rueda de la Fortuna 🎡: representa los ciclos cambiantes de la vida y la capacidad de adaptarse.',
+ lovers:'Los Enamorados ❤️: invitan a reflexionar sobre los vínculos, los valores y las decisiones del corazón.'
+};
+function drawCard(){
+ showText('cardAnswer',cards[document.getElementById('card').value]);
+}
+const symbols={
+ water:'El agua 💧: en distintas tradiciones se relaciona con las emociones, la renovación y la vida.',
+ snake:'La serpiente 🐍: puede simbolizar transformación, prudencia o renovación según la cultura.',
+ butterfly:'La mariposa 🦋: suele representar cambio, crecimiento y nuevos comienzos.',
+ moon:'La luna 🌙: se relaciona con los ciclos, el descanso y el mundo de los sueños.',
+ key:'La llave 🗝️: puede simbolizar una oportunidad, una respuesta o el acceso a algo nuevo.',
+ bird:'El ave 🕊️: en muchas culturas representa libertad, esperanza o paz.',
+ rain:'La lluvia 🌧️: puede asociarse con limpieza, fertilidad y renovación.'
+};
+function interpretSymbol(){
+ showText('symbolAnswer',symbols[document.getElementById('symbol').value]);
+}
+function askOracle(){
+ const q=document.getElementById('question').value.trim();
+ if(!q){
+  showText('oracleAnswer','Primero escribe una pregunta, mi querida visitante. 🔮');
+  return;
+ }
+ const answers=[
+ 'Tómate un momento para observar la situación con calma. ¿Qué sabes con certeza y qué necesitas
