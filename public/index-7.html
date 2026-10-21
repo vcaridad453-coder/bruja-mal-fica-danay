@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10051d">
+<title>Bruja Maléfica Danay de la Caridad</title>
+<style>
+:root{--gold:#ffd76a;--pink:#ff43d0;--violet:#a855f7;--bg:#10051d;--panel:#1d0d2c;--text:#fff5ff}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#35104c 0,#10051d 58%,#07030c 100%);color:var(--text);font-family:Georgia,"Times New Roman",serif;min-height:100vh}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+header{text-align:center;padding:24px 14px 12px}
+h1{font-size:clamp(1.7rem,6vw,2.8rem);color:var(--gold);text-shadow:0 0 8px #ffb6fa,0 0 22px var(--pink);margin:8px 0}
+.subtitle{color:#f6d9ff;margin:6px auto 14px;max-width:620px}
+.portrait-wrap{width:150px;height:150px;margin:12px auto;border-radius:50%;padding:5px;background:linear-gradient(135deg,var(--gold),var(--pink),#7b4dff,var(--gold));box-shadow:0 0 18px var(--pink),0 0 35px #a855f777}
+.portrait{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#24102f;display:block}
+.upload-label{display:inline-block;border:1px solid var(--gold);border-radius:22px;padding:8px 13px;color:var(--gold);font-size:.92rem;cursor:pointer}
+.upload-label input{display:none}
+main{width:min(100% - 24px,900px);margin:0 auto 40px}
+.castle,.room{background:linear-gradient(160deg,#28113aee,#11071bee);border:1px solid #f7d46a66;border-radius:20px;padding:20px;box-shadow:0 0 22px #c32cff22}
+.castle h2,.room h2{text-align:center;color:var(--gold);margin-top:0}
+.intro{text-align:center;line-height:1.55;color:#f5e8ff}
+.doors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+.door{min-height:112px;border:1px solid #ff70e5a8;border-radius:15px;background:linear-gradient(145deg,#47185e,#1c0a2b);color:#fff;padding:15px 9px;box-shadow:inset 0 0 18px #e333ff15,0 0 12px #c026d322;transition:transform .15s,border-color .15s}
+.door:hover,.door:focus{transform:translateY(-2px);border-color:var(--gold);outline:none}
+.door .icon{display:block;font-size:2rem;margin-bottom:8px}
+.door strong{display:block;color:#ffe5ff;font-size:1rem}
+.room{display:none;min-height:330px}
+.room p{line-height:1.6}
+.back{display:block;margin:0 auto 18px;border:1px solid var(--gold);background:#2a1239;color:var(--gold);border-radius:25px;padding:10px 17px}
+.panel{background:#12071e;border:1px solid #a855f755;border-radius:13px;padding:15px;margin:14px 0}
+.action{background:linear-gradient(100deg,#a21caf,#6523b5);color:white;border:1px solid #ff9ae9;border-radius:12px;padding:11px 15px;margin:6px 4px 6px 0}
+.action.secondary{background:#28123b;border-color:var(--gold);color:var(--gold)}
+select,input[type=text],textarea{width:100%;background:#0e0618;color:white;border:1px solid #b77bdf;border-radius:10px;padding:12px;margin:7px 0 10px}
+textarea{min-height:95px;resize:vertical}
+.result{display:none;background:#251032;border:1px solid var(--gold);border-radius:12px;padding:14px;margin-top:14px;line-height:1.6;white-space:pre-wrap}
+.small{font-size:.9rem;color:#dfc7ed}
+footer{text-align:center;padding:0 15px 25px;color:#d9b9e8;font-size:.85rem}
+@media(max-width:420px){.doors{grid-template-columns:1fr}.door{min-height:85px;display:flex;align-items:center;gap:13px;text-align:left;padding:12px 16px}.door .icon{margin:0;font-size:1.8rem}.portrait-wrap{width:128px;height:128px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="portrait-wrap"><img id="portrait" class="portrait" alt="Retrato de la Bruja Maléfica Danay de la Caridad" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%231c0b2b'/%3E%3Ctext x='100' y='92' font-size='72' text-anchor='middle' fill='%23ffd76a'%3E%E2%99%95%3C/text%3E%3Ctext x='100' y='137' font-size='15' text-anchor='middle' fill='%23ff8de9'%3EDANAY%3C/text%3E%3C/svg%3E">
+  </div>
+  <label class="upload-label">✨ Colocar mi foto con brillo
+    <input id="photoInput" type="file" accept="image/*">
+  </label>
+  <h1>Bruja Maléfica Danay de la Caridad</h1>
+  <p class="subtitle">✦ Entra al castillo de la magia, los símbolos y los misterios ✦</p>
+</header>
+
+<main>
+<section id="castle" class="castle">
+  <h2>🏰 Mi Castillo Mágico 🏰</h2>
+  <p class="intro">Elige una puerta para entrar a una habitación. Explora cada espacio a tu ritmo y pulsa <b>“Volver al castillo”</b> cuando quieras regresar.</p>
+  <div class="doors">
+    <button class="door" onclick="openRoom('tarot')"><span class="icon">🃏</span><span><strong>Tarot y Cartas</strong><span class="small">Una carta para reflexionar</span></span></button>
+    <button class="door" onclick="openRoom('oracle')"><span class="icon">🔮</span><span><strong>El Oráculo</strong><span class="small">Preguntas y mensajes simbólicos</span></span></button>
+    <button class="door" onclick="openRoom('dreams')"><span class="icon">🌙</span><span><strong>Sueños y Símbolos</strong><span class="small">Explora sus significados</span></span></button>
+    <button class="door" onclick="openRoom('grimoire')"><span class="icon">📖</span><span><strong>El Grimorio</strong><span class="small">Notas del libro mágico</span></span></button>
+    <button class="door" onclick="openRoom('rituals')"><span class="icon">🕯️</span><span><strong>Rituales Simbólicos</strong><span class="small">Intención, calma y enfoque</span></span></button>
+    <button class="door" onclick="openRoom('baths')"><span class="icon">🌼</span><span><strong>Baños Tradicionales</strong><span class="small">Bienestar y relajación</span></span></button>
+  </div>
+</section>
+
+<section id="tarot" class="room">
+  <button class="back" onclick="goHome()">← Volver al castillo</button>
+  <h2>🃏 Tarot y Cartas</h2>
+  <p>Elige una carta para recibir una interpretación simbólica. Úsala como reflexión personal, no como una predicción segura del futuro.</p>
+  <button class="action" onclick="drawCard()">✨ Sacar una carta</button>
+  <div id="tarotResult" class="result"></div>
+</section>
+
+<section id="oracle" class="room">
+  <button class="back" onclick="goHome()">← Volver al castillo</button>
+  <h2>🔮 El Oráculo</h2>
+  <p>Escribe tu pregunta y recibe un mensaje para pensar con calma. Este oráculo funciona con mensajes preparados; no es una IA conectada a Internet.</p>
+  <label for="question">Tu pregunta:</label>
+  <textarea id="question" placeholder="¿Qué necesito tener presente hoy?"></textarea>
+  <button class="action" onclick="askOracle()">Consultar el oráculo</button>
+  <div id="oracleResult" class="result"></div>
+</section>
+
+<section id="dreams" class="room">
+  <button class="back" onclick="goHome()">← Volver al castillo</button>
+  <h2>🌙 Sueños y Símbolos</h2>
+  <p>Selecciona un símbolo para explorar una posible interpretación cultural o personal.</p>
+  <select id="symbol">
+    <option value="agua">Agua</option><option value="serpiente">Serpiente</option><option value="mariposa">Mariposa</option><option value="llave">Llave</option><option value="luna">Luna</option><option value="gato">Gato</option><option value="camino">Camino</option><option value="oro">Oro</option><option value="flores">Flores</option><option value="vuelo">Volar</option>
+  </select>
+  <button class="action" onclick="interpretSymbol()">Ver significado</button>
+  <div id="symbolResult" class="result"></div>
+</section>
+
+<section id="grimoire" class="room">
+  <button class="back" onclick="goHome()">← Volver al castillo</button>
+  <h2>📖 El Grimorio</h2>
+  <p>Una pequeña colección de símbolos y sus usos como recordatorios de intención.</p>
+  <div class="panel"><b style="color:var(--gold)">🕯️ Vela</b><p>Puede representar claridad, atención y un momento de pausa. Si enciendes una vela real, no la dejes nunca sin vigilancia y mantenla lejos de telas y niños.</p></div>
+  <div class="panel"><b style="color:var(--gold)">🌿 Hoja</b><p>Puede simbolizar crecimiento, renovación y conexión con la naturaleza.</p></div>
+  <div class="panel"><b style="color:var(--gold)">🔑 Llave</b><p>Puede recordarte que hay decisiones, límites y nuevas oportunidades que puedes explorar.</p></div>
+  <div class="panel"><b style="color:var(--gold)">💧 Agua</b><p>Puede representar calma, limpieza simbólica y adaptación. No necesitas beber ni aplicar preparados desconocidos para usar este símbolo.</p></div>
+</section>
+
+<section id="rituals" class="room">
+  <button class="back" onclick="goHome()">← Volver al castillo</button>
+  <h2>🕯️ Rituales Simbólicos</h2>
+  <p>Pequeñas prácticas de reflexión y bienestar, sin promesas sobrenaturales ni riesgos.</p>
+  <div class="panel"><b style="color:var(--gold)">✨ Ritual de intención (3 minutos)</b><ol><li>Siéntate en un lugar cómodo y respira despacio.</li><li>Piensa en una cosa que quieras cuidar o mejorar.</li><li>Escribe un paso pequeño y realista que puedas dar hoy.</li><li>Termina con tres respiraciones tranquilas.</li></ol><button class="action secondary" onclick="showText('ritualResult','Tu intención queda escrita. Recuerda: los cambios se construyen con decisiones y acciones concretas, paso a paso.')">Terminar reflexión</button><div id="ritualResult" class="result"></div></div>
+  <div class="panel"><b style="color:var(--gold)">🌙 Ritual de descanso</b><p>Apaga las pantallas un rato, baja la luz si puedes y anota tres cosas que deseas dejar para mañana. Es una rutina de relajación, no una garantía de resultados mágicos.</p></div>
+</section>
+
+<section id="baths" class="room">
+  <button class="back" onclick="goHome()">← Volver al castillo</button>
+  <h2>🌼 Baños Tradicionales</h2>
+  <p>Ideas sencillas de relajación inspiradas en el cuidado personal. Las tradiciones varían y sus significados son simbólicos; no son tratamientos médicos.</p>
+  <div class="panel"><b style="color:var(--gold)">💧 Baño de calma</b><p>Usa agua tibia a una temperatura cómoda y tómate unos minutos para respirar y descansar. Evita el agua demasiado caliente.</p></div>
+  <div class="panel"><b style="color:var(--gold)">🌼 Aroma suave</b><p>Si utilizas un producto perfumado, elige uno que ya toleres y sigue sus instrucciones. No apliques plantas, aceites esenciales ni mezclas desconocidas sobre la piel; pueden causar irritación o alergias.</p></div>
+  <div class="panel"><b style="color:var(--gold)">⚠️ Recuerda</b><p>No ingieras preparados de hierbas ni uses baños como sustituto de atención médica. Si tienes piel sensible, heridas o alergias, evita añadir ingredientes.</p></div>
+</section>
+</main>
+<footer>✦ Hecho para Danay de la Caridad ✦<br>La magia del castillo es simbólica: tus decisiones y tu bienestar son importantes.</footer>
+
+<script>
+const cardMessages = [
+  ["La Estrella ✨","Esperanza y renovación. Busca aquello que te devuelve la calma y da un paso pequeño hacia ello."],
+  ["La Fuerza 🦁","La fortaleza también puede ser paciencia, ternura y autocontrol. No necesitas resolverlo todo hoy."],
+  ["La Luna 🌙","Hay cosas que todavía no ves con claridad. Date tiempo y distingue entre tus temores y los hechos."],
+  ["El Sol ☀️","Recuerda las personas, actividades y pequeños logros que te aportan alegría y energía."],
+  ["La Emperatriz 🌺","Cuida de ti, de tu creatividad y de aquello que deseas hacer crecer con constancia."],
+  ["El Ermitaño 🕯️","Un momento de silencio puede ayudarte a escuchar tus propias ideas antes de decidir."]
+];
+const oracleMessages = [
+  "Avanza paso a paso. No tienes que conocer todo el camino para elegir una acción útil hoy.",
+  "Escucha tus emociones, pero contrástalas con los hechos antes de tomar una decisión importante.",
+  "Pon límites con respeto. Cuidarte también significa reconocer lo que necesitas.",
+  "Una pausa no es un fracaso. Descansar puede ayudarte a mirar la situación desde otra perspectiva.",
+  "Concéntrate en lo que sí está en tus manos y busca apoyo cuando lo necesites.",
+  "La claridad suele llegar cuando haces una pregunta concreta y das espacio a una respuesta honesta.",
+  "No confundas una preocupación con una certeza. Comprueba la información y date tiempo.",
+  "Celebra los pequeños avances: la constancia suele ser más útil que la perfección."
+];
+const symbols = {
+  agua:"El agua puede simbolizar emociones, adaptación o necesidad de descanso. Piensa en cómo te sentías en el sueño y qué está ocurriendo en tu vida.",
+  serpiente:"La serpiente puede representar cambio, cautela o renovación en distintas tradiciones. Su sentido depende de tus asociaciones personales.",
+  mariposa:"La mariposa suele asociarse con transformación, crecimiento y nuevas etapas.",
+  llave:"La llave puede simbolizar una solución, una oportunidad o una decisión que está en tus manos.",
+  luna:"La luna puede relacionarse con ciclos, intuición y cambios de ánimo; no predice por sí sola lo que sucederá.",
+  gato:"El gato puede evocar independencia, curiosidad o necesidad de espacio, según lo que signifique para ti.",
+  camino:"Un camino puede representar una decisión o una etapa que estás recorriendo. Pregúntate qué paso viene después.",
+  oro:"El oro puede asociarse con valor, confianza, abundancia o algo que aprecias. También puede invitarte a pensar qué es realmente importante.",
+  flores:"Las flores pueden simbolizar afecto, belleza, crecimiento o recuerdo. Considera qué emoción te dejaron.",
+  vuelo:"Volar puede evocar libertad, deseo de superar un obstáculo o ganas de ver una situación desde otra perspectiva."
+};
+function openRoom(id){
+  document.getElementById('castle').style.display='none';
+  document.querySelectorAll('.room').forEach(room=>room.style.display='none');
+  const chosen=document.getElementById(id);
+  if(chosen){chosen.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
+}
+function goHome(){
+  document.querySelectorAll('.room').forEach(room=>room.style.display='none');
+  document.getElementById('castle').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showText(id,text){
+  const box=document.getElementById(id);
+  box.textContent=text;
+  box.style.display='block';
+}
+function drawCard(){
+  const card=cardMessages[Math.floor(Math.random()*cardMessages.length)];
+  showText('tarotResult','Tu carta: '+card[0]+'\n\n'+card[1]+'\n\nTómalo como una invitación a reflexionar, no como una predicción.');
+}
+function askOracle(){
+  const question=document.getElementById('question').value.trim();
+  if(!question){showText('oracleResult','Primero escribe tu pregunta.');return;}
+  const answer=oracleMessages[Math.floor(Math.random()*oracleMessages.length)];
+  showText('oracleResult','Tu pregunta: “'+question+'”\n\nMensaje para reflexionar:\n'+answer+'\n\nEste mensaje es general y simbólico; no sustituye información profesional ni garantiza el futuro.');
+}
+function interpretSymbol(){
+  const key=document.getElementById('symbol').value;
+  showText('symbolResult',symbols[key]||'Este símbolo puede tener muchos significados. Piensa qué representa para ti.');
+}
+document.getElementById('photoInput').addEventListener('change',function(event){
+  const file=event.target.files&&event.target.files[0];
+  if(!file)return;
+  if(!file.type.startsWith('image/')){alert('Elige un archivo de imagen.');return;}
+  const reader=new FileReader();
+  reader.onload=function(e){
+    document.getElementById('portrait').src=e.target.result;
+    try{localStorage.setItem('danayPortrait',e.target.result);}catch(err){}
+  };
+  reader.readAsDataURL(file);
+});
+try{
+  const savedPhoto=localStorage.getItem('danayPortrait');
+  if(savedPhoto)document.getElementById('portrait').src=savedPhoto;
+}catch(err){}
+</script>
+</body>
+</html>
